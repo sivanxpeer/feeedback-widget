@@ -41,8 +41,6 @@ const FeedbackWidget = () => {
 
     // POST /feedback
     const createNewFeedback = async () => {
-        // const today = new Date();
-
         const newPost = {
             "wasHelpful": isHelpful,
             "comment": comment,
@@ -54,9 +52,7 @@ const FeedbackWidget = () => {
         const id = data.id;
         setPostId(id);
         sessionStorage.setItem('id', data.id);
-
         return data;
-        // console.log(e);
     }
 
 
@@ -69,17 +65,13 @@ const FeedbackWidget = () => {
         const newPost = {
             "wasHelpful": isHelpful,
             "comment": comment,
-            // "createdAt": today.toISOString(),
-            // "id": id,
         }
         const { data } = await Api.put(`/feedback/${id}`, newPost)
-        // setIsClicked(false);
         return data;
     }
 
     // DELETE /feedback/:id
     const deleteFeedback = async (id) => {
-        // check if is exsits 
         const data = await getFeedbackData();
         console.log(data);
         const obj = data?.filter((dataObj) => `${dataObj.id}` === `${id}`)
@@ -102,27 +94,20 @@ const FeedbackWidget = () => {
             setDislikeIcon(`${DislikeUnelected}`)
             setIsHelpful(true);
             sessionStorage.setItem('helpful', 'true');
-            // setFeedback({"wasHelpful":true,"comment": comment})
         }
         else {
             setLikeIcon(`${LikeUnelected}`)
             setDislikeIcon(`${DislikeSelected}`)
             setIsHelpful(false)
-            // setFeedback({"wasHelpful":false,"comment": comment})
         }
     }
 
     const handleLikeClick = async (e) => {
         await setConditions(e);
-        // const post = await createNewFeedback();
-        // console.log(post)
-        // return post
     }
 
     const handleSubmit = async (e) => {
-        // e.preventDefault();
-        // console.log(comment);
-        const ID=sessionStorage.getItem("id")
+        const ID = sessionStorage.getItem("id")
         if (!ID) {
             const res = createNewFeedback()
             console.log(res)
@@ -130,9 +115,6 @@ const FeedbackWidget = () => {
         else {
             updateFeedback(ID)
         }
-        // return res;
-        // const update = updateFeedback(postId);
-        // console.log(update);
     }
 
     const handleInputChange = (e) => {
@@ -141,19 +123,12 @@ const FeedbackWidget = () => {
     }
 
     useEffect(() => {
-        // const res = getFeedbackData()
-
-        // setFeedback({"wasHelpful":isHelpful,"comment": comment})
-        // setAllFeedbacks(getFeedbackData())
-        // console.log(post)
-        // getFeedbackById(3);
-        // const res = createNewFeedback()
         console.log(comment)
     }, [isClicked, isHelpful, comment]);
-    
-    
+
+
     // eslint-disable-line react-hooks/exhaustive-deps
-        
+
     return (
         <div className="main-container">
             <div className="feedback-widget">
@@ -169,9 +144,7 @@ const FeedbackWidget = () => {
                     </button>
                 </div>
                 {isClicked && <Form handleInputChange={(e) => handleInputChange(e)} comment={comment} handleSubmit={() => handleSubmit()} />}
-
             </div>
-
         </div>
     )
 }
