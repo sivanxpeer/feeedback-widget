@@ -3,7 +3,7 @@ import "./Form.css";
 
 
 const Form = ({ handleInputChange, comment, handleSubmit }) => {
-
+  //eslint-disable-next-line
   const [isClicked, setIsClicked] = useState(true);
 
   const handleSubmitForm = (e) => {

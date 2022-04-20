@@ -17,11 +17,10 @@ const FeedbackWidget = () => {
     const [likeIcon, setLikeIcon] = useState(`${Like}`);
     const [dislikeIcon, setDislikeIcon] = useState(`${Dislike}`);
     const [isClicked, setIsClicked] = useState(false);
-
+    // eslint-disable-next-line
     const [allFeedbacks, setAllFeedbacks] = useState([]);
     const [isHelpful, setIsHelpful] = useState(null);
     const [comment, setComment] = useState('');
-    const [postId, setPostId] = useState('');
 
 
     // GET /feedback
@@ -44,13 +43,9 @@ const FeedbackWidget = () => {
         const newPost = {
             "wasHelpful": isHelpful,
             "comment": comment,
-            // "createdAt": today.toISOString(),
-            // "id": allFeedbacks.length + 1,
         }
         const { data } = await Api.post("/feedback", newPost);
         console.log(data);
-        const id = data.id;
-        setPostId(id);
         sessionStorage.setItem('id', data.id);
         return data;
     }
@@ -71,6 +66,7 @@ const FeedbackWidget = () => {
     }
 
     // DELETE /feedback/:id
+    // eslint-disable-next-line
     const deleteFeedback = async (id) => {
         const data = await getFeedbackData();
         console.log(data);
@@ -135,11 +131,11 @@ const FeedbackWidget = () => {
                 <h2 className="feedback-title">Is this page helpful?</h2>
                 <div className="buttons-container">
                     <button onClick={(e) => handleLikeClick(e)} className="btn yes">
-                        <img className="icon like-icon" src={likeIcon}></img>
+                        <img alt={"img"} className="icon like-icon" src={likeIcon}></img>
                         Yes
                     </button>
                     <button onClick={handleLikeClick} className="btn no">
-                        <img className="icon dislike-icon" src={dislikeIcon}></img>
+                        <img alt={"img"} className="icon dislike-icon" src={dislikeIcon}></img>
                         No
                     </button>
                 </div>
